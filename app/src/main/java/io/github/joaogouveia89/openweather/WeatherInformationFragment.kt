@@ -1,17 +1,16 @@
 package io.github.joaogouveia89.openweather
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.Fragment
 import io.github.joaogouveia89.openweather.databinding.FragmentFirstBinding
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class FirstFragment : Fragment() {
+class WeatherInformationFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
 
