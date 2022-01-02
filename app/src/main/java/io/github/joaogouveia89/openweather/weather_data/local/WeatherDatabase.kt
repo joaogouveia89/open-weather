@@ -1,7 +1,13 @@
 package io.github.joaogouveia89.openweather.weather_data.local
 
-import android.content.Context
-import javax.inject.Inject
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import io.github.joaogouveia89.openweather.weather_data.local.daos.WeatherRequestDao
+import io.github.joaogouveia89.openweather.weather_data.local.entities.WeatherRequest
 
-class WeatherDatabase @Inject constructor(context: Context) {
+@Database(entities = [WeatherRequest::class], version = 1)
+@TypeConverters(Converters::class)
+abstract class WeatherDatabase : RoomDatabase() {
+    abstract fun weatherRequestDao(): WeatherRequestDao
 }

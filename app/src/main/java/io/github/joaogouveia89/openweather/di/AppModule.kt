@@ -4,7 +4,7 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import io.github.joaogouveia89.openweather.weather_data.WeatherLocationManager
-import io.github.joaogouveia89.openweather.weather_data.local.WeatherDatabase
+import io.github.joaogouveia89.openweather.weather_data.local.WeatherDatabaseInstance
 import io.github.joaogouveia89.openweather.weather_data.remote.OpenWeatherApi
 import javax.inject.Singleton
 
@@ -15,7 +15,7 @@ class AppModule(
 
     @Singleton
     @Provides
-    fun provideWeatherDatabase(): WeatherDatabase = WeatherDatabase(context)
+    fun provideWeatherDatabaseInstance(): WeatherDatabaseInstance = WeatherDatabaseInstance(context)
 
     @Singleton
     @Provides
