@@ -9,6 +9,7 @@ import io.github.joaogouveia89.openweather.weather_data.WeatherDataRepository
 import io.github.joaogouveia89.openweather.weather_data.WeatherLocationManager
 import io.github.joaogouveia89.openweather.weather_data.local.entities.WeatherRequest
 import kotlinx.coroutines.*
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -18,10 +19,10 @@ class MainViewModel
     private val weatherLocationManager: WeatherLocationManager): ViewModel() {
 
     private val weatherRequestObserver = Observer<Response.LocalDatabase> {
-        if(it is Response.LocalDatabase.Success){
+        if(it is Response.LocalDatabase.Success) {
             val cal = Calendar.getInstance()
             cal.time = it.weatherRequest.requestDate
-            Log.i("JOAODEBUG", "latitude = ${cal.get(Calendar.YEAR)}")
+            Timber.i("JOAODEBUG::latitude = " + cal.get(Calendar.YEAR))
         }
     }
 
