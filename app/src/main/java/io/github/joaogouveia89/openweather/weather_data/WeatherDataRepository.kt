@@ -14,9 +14,8 @@ class WeatherDataRepository @Inject constructor(
         room.initializeDatabase()
     }
 
-    fun addUpdateWeatherRequest(lat: Double, long: Double) = liveData{
+    fun getCoordinatesRequest(lat: Double, long: Double) = liveData{
         emit(Response.LocalDatabase.Loading())
-
         emit(Response.LocalDatabase.Success(room.getCoordinatesRequest(lat, long)))
     }
 }

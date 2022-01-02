@@ -7,6 +7,10 @@ import dagger.android.HasAndroidInjector
 import io.github.joaogouveia89.openweather.di.AppModule
 import io.github.joaogouveia89.openweather.di.DaggerAppComponent
 import javax.inject.Inject
+import timber.log.Timber
+
+
+
 
 class OpenWeatherApp: Application() ,HasAndroidInjector {
     @Inject
@@ -20,6 +24,10 @@ class OpenWeatherApp: Application() ,HasAndroidInjector {
             .appModule(AppModule(applicationContext))
             .build()
             .inject(this)
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
     }
 
     override fun androidInjector(): AndroidInjector<Any> = mInjector

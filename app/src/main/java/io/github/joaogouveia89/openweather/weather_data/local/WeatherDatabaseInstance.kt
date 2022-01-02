@@ -20,15 +20,7 @@ class WeatherDatabaseInstance @Inject constructor(val context: Context) {
         ).build()
     }
 
-    suspend fun getCoordinatesRequest(latitude: Double, longitude: Double): WeatherRequest = withContext(Dispatchers.IO) {
-        var coordinatesRequest = db?.weatherRequestDao()?.getCoordinatesRequest(latitude, longitude)
-        if(coordinatesRequest == null){
-            coordinatesRequest = WeatherRequest(latitude = latitude, longitude = longitude, requestDate = Calendar.getInstance().time)
-            db?.weatherRequestDao()?.insert(coordinatesRequest)
-        }else{
-            coordinatesRequest.requestDate = Calendar.getInstance().time
-            db?.weatherRequestDao()?.updateCoordinatesRequest(coordinatesRequest)
-        }
-        coordinatesRequest
+    suspend fun getCoordinatesRequest(latitude: Double, longitude: Double): WeatherRequest? = withContext(Dispatchers.IO) {
+       db?.weatherRequestDao()?.getCoordinatesRequest(latitude, longitude)
     }
 }

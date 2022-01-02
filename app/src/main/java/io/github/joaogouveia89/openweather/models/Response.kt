@@ -5,6 +5,6 @@ import io.github.joaogouveia89.openweather.weather_data.local.entities.WeatherRe
 sealed class Response {
     sealed class LocalDatabase: Response(){
         class Loading(): LocalDatabase()
-        class Success(val weatherRequest: WeatherRequest): LocalDatabase()
+        class Success(val weatherRequest: WeatherRequest?): LocalDatabase()
     }
 }
