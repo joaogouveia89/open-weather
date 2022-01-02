@@ -3,7 +3,6 @@ package io.github.joaogouveia89.openweather
 import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Geocoder
-import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
