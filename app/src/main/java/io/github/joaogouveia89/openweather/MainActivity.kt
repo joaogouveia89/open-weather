@@ -1,23 +1,14 @@
 package io.github.joaogouveia89.openweather
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.location.Geocoder
-import android.location.LocationManager
-import android.os.Build
 import android.os.Bundle
-import android.util.AttributeSet
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import io.github.joaogouveia89.openweather.databinding.ActivityMainBinding
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -53,32 +44,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //TODO Supressing permissions asking for now, since the first tests will be on API 19
-    @SuppressLint("MissingPermission")
-    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
-        val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        val hasGps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-        val hasNetwork = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
-        val gc = Geocoder(this, Locale.getDefault())
-
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M){
-            if (hasGps) {
-                val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-                Log.i("JOAODEBUG::", "GPS Location: ${location?.latitude} ${location?.longitude}")
-                location?.let {
-                    val addresses = gc.getFromLocation(it.latitude, it.longitude, 1)
-                    Log.i("JOAODEBUG", addresses[0].getAddressLine(0))
-                }
-
-            }
-            if (hasNetwork) {
-                val location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-                Log.i("JOAODEBUG::", "Network Location: ${location?.latitude} ${location?.longitude}")
-            }
-        }
-
-        return super.onCreateView(name, context, attrs)
-    }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)

@@ -16,7 +16,7 @@ class OpenWeatherApp: Application() ,HasAndroidInjector {
         super.onCreate()
 
         DaggerAppComponent.builder()
-            .appModule(AppModule(this))
+            .appModule(AppModule(applicationContext))
             .build()
             .inject(this)
     }

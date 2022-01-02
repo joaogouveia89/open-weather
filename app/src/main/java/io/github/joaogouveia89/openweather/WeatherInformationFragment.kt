@@ -39,6 +39,7 @@ class WeatherInformationFragment : Fragment() {
         /*binding.buttonFirst.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }*/
+        viewModel.initializeLocationFetching()
     }
 
     override fun onAttach(context: Context) {
