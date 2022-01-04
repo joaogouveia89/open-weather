@@ -9,7 +9,7 @@
 
 > This project is still under development
 
-### Project bounderies
+### Project boundaries
 
 - Min SDK: 19(Kit Kat)
 
