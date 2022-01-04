@@ -1,18 +1,17 @@
 package io.github.joaogouveia89.openweather
 
 import android.app.Application
+import androidx.multidex.MultiDexApplication
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import io.github.joaogouveia89.openweather.di.AppModule
 import io.github.joaogouveia89.openweather.di.DaggerAppComponent
-import javax.inject.Inject
 import timber.log.Timber
+import javax.inject.Inject
 
 
-
-
-class OpenWeatherApp: Application() ,HasAndroidInjector {
+class OpenWeatherApp: MultiDexApplication() ,HasAndroidInjector {
     @Inject
     lateinit var mInjector: DispatchingAndroidInjector<Any>
 

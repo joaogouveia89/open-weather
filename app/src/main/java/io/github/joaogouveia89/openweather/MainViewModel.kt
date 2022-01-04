@@ -8,7 +8,6 @@ import io.github.joaogouveia89.openweather.models.Response
 import io.github.joaogouveia89.openweather.weather_data.WeatherDataRepository
 import io.github.joaogouveia89.openweather.weather_data.WeatherLocationManager
 import timber.log.Timber
-import java.util.*
 import javax.inject.Inject
 
 class MainViewModel
@@ -36,7 +35,6 @@ class MainViewModel
 
     fun initializeAllDependencies(){
         weatherLocationManager.requestLocation()
-        weatherRepository.initialize()
         weatherLocationManager.currentLocation.observeForever(locationObserver)
     }
 

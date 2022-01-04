@@ -19,7 +19,7 @@ class AppModule(
 
     @Singleton
     @Provides
-    fun provideOpenWeatherApi():OpenWeatherApi = OpenWeatherApi(context)
+    fun provideOpenWeatherApi():OpenWeatherApi = OpenWeatherApi()
 
     @Singleton
     @Provides
