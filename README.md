@@ -44,6 +44,4 @@ git clone git@github.com:joaogouveia89/open-weather.git
 
 ## 📝 License
 
-This project is under license. See [LICENÇA](LICENSE.md) for details.
-
-[⬆ Back to top](#Open Weather)<br>
+This project is under license. See [LICENSE](LICENSE.md) for details.
