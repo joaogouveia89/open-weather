@@ -3,11 +3,12 @@ package io.github.joaogouveia89.openweather
 import android.location.Location
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import io.github.joaogouveia89.openweather.ktx.daysAgo
-import io.github.joaogouveia89.openweather.models.Response
+import androidx.lifecycle.viewModelScope
+import io.github.joaogouveia89.openweather.ktx.observeOnceVm
+import io.github.joaogouveia89.openweather.models.Weather
 import io.github.joaogouveia89.openweather.weather_data.WeatherDataRepository
 import io.github.joaogouveia89.openweather.weather_data.WeatherLocationManager
-import timber.log.Timber
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MainViewModel
@@ -15,31 +16,25 @@ class MainViewModel
     private val weatherRepository: WeatherDataRepository,
     private val weatherLocationManager: WeatherLocationManager): ViewModel() {
 
-    private val DAYS_AGO_TO_UPDATE = 1 // TODO MOVE THIS TO A SETTINGS FILE
-
-    private val locationObserver = Observer<Location>{
-        weatherRepository.getCoordinatesRequest(it.latitude, it.longitude).observeForever(weatherRequestObserver)
+    private val currentLocationObserver = Observer<Location>{ currentLocation ->
+        viewModelScope.launch {
+            weatherRepository
+                .getCoordinatesNext7DaysWeather(currentLocation.latitude, currentLocation.longitude)
+                .observeOnceVm(weatherListObserver)
+        }
     }
 
-    private val weatherRequestObserver = Observer<Response.LocalDatabase> { it ->
-        if(it is Response.LocalDatabase.Success) {
-            it.weatherRequest.let { weatherRequest ->
-                if(weatherRequest == null || weatherRequest.requestDate.daysAgo() >= DAYS_AGO_TO_UPDATE){
-                    // update in localdatabase the last update for this coordinates and call the api with the data
-                }else{
-                    // get the local stored data for this coordinates
-                }
-            }
-        }
+    private val weatherListObserver = Observer<List<Weather>> {
+        // TODO list to show on view
     }
 
     fun initializeAllDependencies(){
         weatherLocationManager.requestLocation()
-        weatherLocationManager.currentLocation.observeForever(locationObserver)
+        weatherLocationManager.currentLocation.observeForever(currentLocationObserver)
     }
 
     override fun onCleared() {
         super.onCleared()
-        weatherLocationManager.currentLocation.removeObserver(locationObserver)
+        weatherLocationManager.currentLocation.removeObserver(currentLocationObserver)
     }
 }

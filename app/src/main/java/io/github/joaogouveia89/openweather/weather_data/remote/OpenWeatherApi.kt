@@ -1,15 +1,15 @@
 package io.github.joaogouveia89.openweather.weather_data.remote
 
+import io.github.joaogouveia89.openweather.ktx.getUnsafeOkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import okhttp3.logging.HttpLoggingInterceptor
-import io.github.joaogouveia89.openweather.ktx.getUnsafeOkHttpClient
 
 
 class OpenWeatherApi {
     private val logging =  HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BASIC
-    };
+    }
     private var client = getUnsafeOkHttpClient()
         .build()
 

@@ -2,8 +2,6 @@ package io.github.joaogouveia89.openweather.ktx
 
 import android.annotation.SuppressLint
 import okhttp3.OkHttpClient
-import java.lang.Exception
-import java.lang.RuntimeException
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
 import javax.net.ssl.SSLContext

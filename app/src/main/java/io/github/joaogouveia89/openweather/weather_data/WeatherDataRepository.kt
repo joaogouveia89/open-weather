@@ -1,7 +1,8 @@
 package io.github.joaogouveia89.openweather.weather_data
 
 import androidx.lifecycle.liveData
-import io.github.joaogouveia89.openweather.models.Response
+import io.github.joaogouveia89.openweather.ktx.daysAgo
+import io.github.joaogouveia89.openweather.models.Weather
 import io.github.joaogouveia89.openweather.weather_data.local.WeatherDatabaseInstance
 import io.github.joaogouveia89.openweather.weather_data.remote.OpenWeatherApi
 import io.github.joaogouveia89.openweather.weather_data.remote.models.OpenWeatherResponse
@@ -14,6 +15,8 @@ class WeatherDataRepository @Inject constructor(
     private val api: OpenWeatherApi,
     private val room: WeatherDatabaseInstance
 ) {
+
+    private val DAYS_AGO_TO_UPDATE = 1 // TODO MOVE THIS TO A SETTINGS FILE
 
     private val openWeatherApiCallback = object: Callback<OpenWeatherResponse> {
         override fun onResponse(
@@ -32,12 +35,15 @@ class WeatherDataRepository @Inject constructor(
 
     }
 
-    fun getCoordinatesRequest(lat: Double, long: Double) = liveData{
+    suspend fun getCoordinatesNext7DaysWeather(lat: Double, long: Double) = liveData<List<Weather>>{
         //TODO get coordinates request here, if the api fetch was done in less than 1 day, use the local stored data, otherwise fetch for new data
-        api.service.fetchWeatherData(lat, long).apply {
-            enqueue(openWeatherApiCallback)
+       val lastRequest = room.getCoordinatesRequest(lat, long)
+        if(lastRequest != null && lastRequest.requestDate.daysAgo() >= DAYS_AGO_TO_UPDATE){
+            api.service.fetchWeatherData(lat, long).apply {
+                enqueue(openWeatherApiCallback)
+            }
+        }else{
+            // TODO return from room all the data
         }
-        emit(Response.LocalDatabase.Loading())
-        emit(Response.LocalDatabase.Success(room.getCoordinatesRequest(lat, long)))
     }
 }

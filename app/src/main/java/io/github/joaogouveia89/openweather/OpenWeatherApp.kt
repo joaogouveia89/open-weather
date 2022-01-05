@@ -1,6 +1,5 @@
 package io.github.joaogouveia89.openweather
 
-import android.app.Application
 import androidx.multidex.MultiDexApplication
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
