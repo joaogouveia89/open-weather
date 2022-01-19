@@ -3,7 +3,7 @@ package io.github.joaogouveia89.openweather.weather_data.remote.models
 import com.google.gson.annotations.SerializedName
 
 data class Daily(
-    @SerializedName("dt") val dt : Int,
+    @SerializedName("dt") val dt : Long,
     @SerializedName("sunrise") val sunrise : Int,
     @SerializedName("sunset") val sunset : Int,
     @SerializedName("moonrise") val moonrise : Int,

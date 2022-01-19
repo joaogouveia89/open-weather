@@ -1,14 +1,19 @@
 package io.github.joaogouveia89.openweather.weather_data
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import io.github.joaogouveia89.openweather.ktx.daysAgo
-import io.github.joaogouveia89.openweather.models.Weather
+import io.github.joaogouveia89.openweather.weather_data.local.entities.Weather
 import io.github.joaogouveia89.openweather.weather_data.local.WeatherDatabaseInstance
 import io.github.joaogouveia89.openweather.weather_data.remote.OpenWeatherApi
 import io.github.joaogouveia89.openweather.weather_data.remote.models.OpenWeatherResponse
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import timber.log.Timber
+import java.util.*
 import javax.inject.Inject
 
 class WeatherDataRepository @Inject constructor(
@@ -35,15 +40,19 @@ class WeatherDataRepository @Inject constructor(
 
     }
 
-    suspend fun getCoordinatesNext7DaysWeather(lat: Double, long: Double) = liveData<List<Weather>>{
-        //TODO get coordinates request here, if the api fetch was done in less than 1 day, use the local stored data, otherwise fetch for new data
-       val lastRequest = room.getCoordinatesRequest(lat, long)
-        if(lastRequest != null && lastRequest.requestDate.daysAgo() >= DAYS_AGO_TO_UPDATE){
-            api.service.fetchWeatherData(lat, long).apply {
-                enqueue(openWeatherApiCallback)
-            }
-        }else{
-            // TODO return from room all the data
-        }
+    suspend fun getCoordinatesNext7DaysWeather(lat: Double, long: Double) = liveData(Dispatchers.IO){
+        withContext(Dispatchers.IO){
+            var weatherList = room.getWeather(lat, long)
+            //TODO: Refactor, Date(weather[0].requestDate is assuming that all the db registers got the same requestDate
+           if(weatherList.isEmpty() || Date(weatherList[0].requestDate).daysAgo() >= DAYS_AGO_TO_UPDATE){
+               Timber.d("JOAODEBUG::CALLING API, wl size = ${weatherList.size}")
+                val response = api.service.fetchWeatherData(lat, long)
+                weatherList = Weather.fromOpenWeatherResponse(response)
+               room.insertAll(weatherList)
+            }else{
+               Timber.d("JOAODEBUG::FROM ROOM")
+           }
+            emit(weatherList)
+        }//TODO get coordinates request here, if the api fetch was done in less than 1 day, use the local stored data, otherwise fetch for new data
     }
 }

@@ -1,11 +1,9 @@
 package io.github.joaogouveia89.openweather.weather_data.local
 
 import android.content.Context
-import androidx.lifecycle.liveData
 import androidx.room.Room
-import io.github.joaogouveia89.openweather.weather_data.local.entities.WeatherRequest
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import io.github.joaogouveia89.openweather.weather_data.local.entities.Weather
+import java.util.*
 import javax.inject.Inject
 
 class WeatherDatabaseInstance @Inject constructor(private val context: Context) {
@@ -14,6 +12,9 @@ class WeatherDatabaseInstance @Inject constructor(private val context: Context) 
         WeatherDatabase::class.java, DATABASE_NAME
     ).build()
 
-    fun getCoordinatesRequest(latitude: Double, longitude: Double): WeatherRequest? =
-        db?.weatherRequestDao()?.getCoordinatesRequest(latitude, longitude)
+    suspend fun getWeather(latitude: Double, longitude: Double): List<Weather> =
+        db?.weatherDao()?.getWeatherList(latitude, longitude) ?: emptyList()
+
+    suspend fun insertAll(weathers: List<Weather>) =
+        db?.weatherDao()?.insertAll(weathers)
 }

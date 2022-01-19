@@ -7,6 +7,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface OpenWeather {
-    @GET("/data/2.5/onecall?appid=${BuildConfig.OPEN_WEATHER_API_TOKEN}&exclude=minutely,hourly,alerts")
-    fun fetchWeatherData(@Query("lat") latitude: Double, @Query("lon") longitude: Double): Call<OpenWeatherResponse>
+    @GET("/data/2.5/onecall?appid=${BuildConfig.OPEN_WEATHER_API_TOKEN}&exclude=minutely,hourly,alerts,current")
+    suspend fun fetchWeatherData(@Query("lat") latitude: Double, @Query("lon") longitude: Double): OpenWeatherResponse
 }

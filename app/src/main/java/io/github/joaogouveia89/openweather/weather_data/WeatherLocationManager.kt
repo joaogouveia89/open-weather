@@ -10,6 +10,7 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import timber.log.Timber
 import javax.inject.Inject
 
 class WeatherLocationManager @Inject constructor(val context: Context) {

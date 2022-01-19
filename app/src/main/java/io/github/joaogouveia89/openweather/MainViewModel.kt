@@ -1,14 +1,16 @@
 package io.github.joaogouveia89.openweather
 
 import android.location.Location
+import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.github.joaogouveia89.openweather.ktx.observeOnceVm
-import io.github.joaogouveia89.openweather.models.Weather
+import io.github.joaogouveia89.openweather.weather_data.local.entities.Weather
 import io.github.joaogouveia89.openweather.weather_data.WeatherDataRepository
 import io.github.joaogouveia89.openweather.weather_data.WeatherLocationManager
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 class MainViewModel
@@ -25,7 +27,9 @@ class MainViewModel
     }
 
     private val weatherListObserver = Observer<List<Weather>> {
-        // TODO list to show on view
+        it.forEach {
+            Timber.d("JOAODEBUG::$it")
+        }
     }
 
     fun initializeAllDependencies(){

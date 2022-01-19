@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import dagger.android.support.AndroidSupportInjection
 import io.github.joaogouveia89.openweather.databinding.FragmentWeatherInformation4Binding
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -39,6 +40,7 @@ class WeatherInformationFragment : Fragment() {
         /*binding.buttonFirst.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }*/
+        Timber.d("JOAODEBUG:: Weather information fragment")
         viewModel.initializeAllDependencies()
     }
 
