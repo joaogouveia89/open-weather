@@ -5,7 +5,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import io.github.joaogouveia89.openweather.ktx.toCelsius
 import io.github.joaogouveia89.openweather.weather_data.remote.models.OpenWeatherResponse
-import java.util.Date
 
 @Entity
 data class Weather(

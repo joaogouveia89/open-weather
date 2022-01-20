@@ -1,6 +1,5 @@
 package io.github.joaogouveia89.openweather.ktx
 
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 

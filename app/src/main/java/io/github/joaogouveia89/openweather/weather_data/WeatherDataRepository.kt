@@ -1,18 +1,12 @@
 package io.github.joaogouveia89.openweather.weather_data
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import io.github.joaogouveia89.openweather.ktx.daysAgo
-import io.github.joaogouveia89.openweather.weather_data.local.entities.Weather
 import io.github.joaogouveia89.openweather.weather_data.local.WeatherDatabaseInstance
+import io.github.joaogouveia89.openweather.weather_data.local.entities.Weather
 import io.github.joaogouveia89.openweather.weather_data.remote.OpenWeatherApi
-import io.github.joaogouveia89.openweather.weather_data.remote.models.OpenWeatherResponse
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
-import retrofit2.Call
-import retrofit2.Callback
-import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 

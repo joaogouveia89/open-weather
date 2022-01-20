@@ -2,7 +2,6 @@ package io.github.joaogouveia89.openweather.weather_data.remote
 
 import io.github.joaogouveia89.openweather.BuildConfig
 import io.github.joaogouveia89.openweather.weather_data.remote.models.OpenWeatherResponse
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
