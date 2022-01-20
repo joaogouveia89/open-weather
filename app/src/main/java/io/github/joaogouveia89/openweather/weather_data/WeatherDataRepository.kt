@@ -17,6 +17,8 @@ class WeatherDataRepository @Inject constructor(
 
     private val DAYS_AGO_TO_UPDATE = 1 // TODO MOVE THIS TO A SETTINGS FILE
 
+    //http://saulmm.github.io/mastering-coordinator
+
     suspend fun getCoordinatesNext7DaysWeather(lat: Double, long: Double) = liveData(Dispatchers.IO){
         withContext(Dispatchers.IO){
             var weatherList = room.getWeather(lat, long)

@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import dagger.android.support.AndroidSupportInjection
-import io.github.joaogouveia89.openweather.databinding.FragmentWeatherInformation4Binding
+import io.github.joaogouveia89.openweather.databinding.FragmentWeatherInformationBinding
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -19,7 +19,7 @@ class WeatherInformationFragment : Fragment() {
     @Inject
     lateinit var viewModel: MainViewModel
 
-    private var _binding: FragmentWeatherInformation4Binding? = null
+    private var _binding: FragmentWeatherInformationBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -29,7 +29,7 @@ class WeatherInformationFragment : Fragment() {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentWeatherInformation4Binding.inflate(inflater, container, false)
+        _binding = FragmentWeatherInformationBinding.inflate(inflater, container, false)
         return binding.root
 
     }
