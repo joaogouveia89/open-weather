@@ -11,8 +11,9 @@ import java.util.Date
 data class Weather(
     @PrimaryKey(autoGenerate = true) val uid: Int = 0,
     @ColumnInfo(name = "requestDate") val requestDate: Long,
-    @ColumnInfo(name = "latitude") val latitude: Double,
-    @ColumnInfo(name = "longitude") val longitude: Double,
+    // typeAffinity = ColumnInfo.REAL is to keep the float precision as the real type in sqlite stores with the required precision
+    @ColumnInfo(name = "latitude", typeAffinity = ColumnInfo.REAL) val latitude: Double,
+    @ColumnInfo(name = "longitude", typeAffinity = ColumnInfo.REAL) val longitude: Double,
     @ColumnInfo(name = "date") val date: Long,
     @ColumnInfo(name = "minTemp") val minTemp: Double,
     @ColumnInfo(name = "maxTemp") val maxTemp: Double,
@@ -23,12 +24,12 @@ data class Weather(
     @ColumnInfo(name = "openWeatherId") val openWeatherId: Int,
 ){
     companion object{
-        fun fromOpenWeatherResponse(response: OpenWeatherResponse) =
+        fun fromOpenWeatherResponse(response: OpenWeatherResponse, lat: Double, lon: Double) =
             response.daily.map {
                 Weather(
                     requestDate = System.currentTimeMillis(),
-                    latitude = response.lat,
-                    longitude = response.lon,
+                    latitude = lat,
+                    longitude = lon,
                     date = it.dt,
                     minTemp = it.temp.min.toCelsius(),
                     maxTemp = it.temp.max.toCelsius(),

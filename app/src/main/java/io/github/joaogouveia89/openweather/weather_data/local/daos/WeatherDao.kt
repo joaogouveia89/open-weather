@@ -8,7 +8,7 @@ import io.github.joaogouveia89.openweather.weather_data.local.entities.Weather
 
 @Dao
 interface WeatherDao {
-    @Query("SELECT * FROM weather WHERE latitude=:latitude AND longitude=:longitude")
+    @Query("SELECT * FROM weather WHERE latitude= :latitude AND longitude= :longitude")
     suspend fun getWeatherList(latitude: Double, longitude: Double): List<Weather>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
