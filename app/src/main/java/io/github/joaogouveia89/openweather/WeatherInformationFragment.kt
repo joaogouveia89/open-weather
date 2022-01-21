@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import dagger.android.support.AndroidSupportInjection
@@ -28,9 +29,8 @@ class WeatherInformationFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val weatherListObserver = Observer<List<Weather>>{
-        for(i in it){
-            Timber.d("JOAODEBUG::$i")
-        }
+        val header = view?.findViewById<TextView>(R.id.xuxu)
+        header?.text = viewModel.cityName
     }
 
     override fun onCreateView(

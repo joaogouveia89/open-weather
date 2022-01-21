@@ -10,6 +10,10 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 import kotlin.math.*
+import android.location.Geocoder
+import androidx.lifecycle.Observer
+import java.util.*
+
 
 class MainViewModel
     @Inject constructor(
@@ -18,6 +22,9 @@ class MainViewModel
 
     val weatherList: LiveData<List<Weather>>
         get() = _weatherList
+
+    val cityName: String
+        get() = weatherLocationManager.cityName
 
     private val _weatherList = MutableLiveData<List<Weather>>()
 

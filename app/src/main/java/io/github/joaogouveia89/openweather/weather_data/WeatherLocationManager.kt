@@ -23,6 +23,16 @@ class WeatherLocationManager @Inject constructor(val context: Context) {
         interval = 20 * 1000
     }
 
+    val cityName: String
+        get() {
+            _currentLocation.value?.let {
+                val gcd = Geocoder(context, Locale.getDefault())
+                val addresses = gcd.getFromLocation(it.latitude,it.longitude, 1)
+                return addresses[0].subAdminArea ?: addresses[0].adminArea ?: ""
+            }
+            return ""
+        }
+
     private val locationCallback = object: LocationCallback(){
         override fun onLocationResult(locationResult: LocationResult) {
             for (location in locationResult.locations) {

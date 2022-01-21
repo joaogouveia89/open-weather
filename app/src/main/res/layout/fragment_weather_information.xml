@@ -25,14 +25,14 @@
         app:expandedTitleMarginStart="48dp"
         app:expandedTitleMarginEnd="64dp">
 
-        <ImageView
+        <include layout="@layout/todays_weather"
             android:id="@+id/main.backdrop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:fitsSystemWindows="true"
-            android:src="@drawable/common_google_signin_btn_text_dark"
-            app:layout_collapseMode="parallax"/>
+            app:layout_collapseMode="parallax"
+            />
         <!-- Tell your toolbar to scroll|enterAlways -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/main.toolbar"
