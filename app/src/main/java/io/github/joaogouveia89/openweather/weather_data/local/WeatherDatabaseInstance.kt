@@ -13,9 +13,11 @@ class WeatherDatabaseInstance @Inject constructor(private val context: Context) 
         DATABASE_NAME
     ).build()
 
-    suspend fun getWeather(latitude: Double, longitude: Double): List<Weather> =
-        db.weatherDao().getWeatherList(latitude, longitude)
+    suspend fun getWeatherList(): List<Weather> =
+        db.weatherDao().getWeatherList()
 
     suspend fun insertAll(weathers: List<Weather>) =
         db.weatherDao().insertAll(weathers)
+
+    fun clearData() = db.clearAllTables()
 }

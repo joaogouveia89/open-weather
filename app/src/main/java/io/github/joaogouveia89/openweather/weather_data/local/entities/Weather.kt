@@ -9,10 +9,6 @@ import io.github.joaogouveia89.openweather.weather_data.remote.models.OpenWeathe
 @Entity
 data class Weather(
     @PrimaryKey(autoGenerate = true) val uid: Int = 0,
-    @ColumnInfo(name = "requestDate") val requestDate: Long,
-    // typeAffinity = ColumnInfo.REAL is to keep the float precision as the real type in sqlite stores with the required precision
-    @ColumnInfo(name = "latitude", typeAffinity = ColumnInfo.REAL) val latitude: Double,
-    @ColumnInfo(name = "longitude", typeAffinity = ColumnInfo.REAL) val longitude: Double,
     @ColumnInfo(name = "date") val date: Long,
     @ColumnInfo(name = "minTemp") val minTemp: Double,
     @ColumnInfo(name = "maxTemp") val maxTemp: Double,
@@ -23,12 +19,9 @@ data class Weather(
     @ColumnInfo(name = "openWeatherId") val openWeatherId: Int,
 ){
     companion object{
-        fun fromOpenWeatherResponse(response: OpenWeatherResponse, lat: Double, lon: Double) =
+        fun fromOpenWeatherResponse(response: OpenWeatherResponse) =
             response.daily.map {
                 Weather(
-                    requestDate = System.currentTimeMillis(),
-                    latitude = lat,
-                    longitude = lon,
                     date = it.dt,
                     minTemp = it.temp.min.toCelsius(),
                     maxTemp = it.temp.max.toCelsius(),

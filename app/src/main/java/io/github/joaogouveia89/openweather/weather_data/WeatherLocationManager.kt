@@ -2,6 +2,7 @@ package io.github.joaogouveia89.openweather.weather_data
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.location.Geocoder
 import android.location.Location
 import android.os.Looper
 import androidx.lifecycle.LiveData
@@ -10,13 +11,13 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import java.util.*
 import javax.inject.Inject
 
 class WeatherLocationManager @Inject constructor(val context: Context) {
 
     private val _currentLocation = MutableLiveData<Location>()
     private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
-
     private val locationRequest = LocationRequest.create().apply {
         priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         interval = 20 * 1000
