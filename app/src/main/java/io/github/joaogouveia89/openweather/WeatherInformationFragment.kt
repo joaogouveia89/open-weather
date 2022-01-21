@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import dagger.android.support.AndroidSupportInjection
 import io.github.joaogouveia89.openweather.databinding.FragmentWeatherInformationBinding
+import io.github.joaogouveia89.openweather.weather_data.local.entities.Weather
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -25,6 +27,12 @@ class WeatherInformationFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    private val weatherListObserver = Observer<List<Weather>>{
+        for(i in it){
+            Timber.d("JOAODEBUG::$i")
+        }
+    }
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -40,8 +48,8 @@ class WeatherInformationFragment : Fragment() {
         /*binding.buttonFirst.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }*/
-        Timber.d("JOAODEBUG:: Weather information fragment")
-        viewModel.initializeAllDependencies()
+        viewModel.requireUpdatedLocation()
+        viewModel.weatherList.observe(viewLifecycleOwner, weatherListObserver)
     }
 
     override fun onAttach(context: Context) {
