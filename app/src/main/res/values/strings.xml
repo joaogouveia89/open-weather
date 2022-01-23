@@ -9,4 +9,10 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="today">Today</string>
+
+    <string name="temperature_val">%,.2f ºC </string>
+    <string name="percent_val">%,.2f %%</string>
+    <string name="wind_speed_val">%,.2f m/s</string>
+    <string name="weather_image">Weather image</string>
 </resources>

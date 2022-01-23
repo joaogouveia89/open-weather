@@ -23,10 +23,14 @@ class MainViewModel
     val weatherList: LiveData<List<Weather>>
         get() = _weatherList
 
+    val todayWeather: LiveData<Weather>
+        get() = _todayWeather
+
     val cityName: String
         get() = weatherLocationManager.cityName
 
     private val _weatherList = MutableLiveData<List<Weather>>()
+    private val _todayWeather = MutableLiveData<Weather>()
 
     private val currentLocationObserver = Observer<Location>{ currentLocation ->
         viewModelScope.launch {
@@ -74,7 +78,8 @@ class MainViewModel
     }
 
     private val weatherListObserver = Observer<List<Weather>> {
-        _weatherList.postValue(it)
+        _todayWeather.postValue(it[0])
+        _weatherList.postValue(it.filterIndexed{ index, _ -> index != 0})
     }
 
     fun requireUpdatedLocation(){

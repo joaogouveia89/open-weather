@@ -1,6 +1,5 @@
 package io.github.joaogouveia89.openweather.weather_data
 
-import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import io.github.joaogouveia89.openweather.R
@@ -19,17 +18,33 @@ class WeatherCondition(val id: Int) {
     // icons https://www.svgrepo.com/vectors/thunderstorm/
     init {
         when(id){
-            800 ->{
+            800 -> {
                 _mainImage = R.drawable.ic_sun
                 _background = R.color.clear_sky
             }
-            in 500..531 ->{
+            in 500..531 -> {
                 _mainImage = R.drawable.ic_rain
-                _background = R.color.rainy_sky
+                _background = R.color.foggy_sky
             }
-            in 200..232 ->{
-                _mainImage = R.drawable.ic_rain
-                _background = R.color.rainy_sky
+            in 200..232 -> {
+                _mainImage = R.drawable.ic_thunderstorm
+                _background = R.color.foggy_sky
+            }
+            in 300..321 -> {
+                _mainImage = R.drawable.ic_drizzle
+                _background = R.color.foggy_sky
+            }
+            in 600..622 -> {
+                _mainImage = R.drawable.ic_snow
+                _background = R.color.foggy_sky
+            }
+            in 700..781 -> {
+                _mainImage = R.drawable.ic_foggy
+                _background = R.color.foggy_sky
+            }
+            in 801..804 -> {
+                _mainImage = R.drawable.ic_foggy
+                _background = R.color.clear_sky
             }
         }
     }
