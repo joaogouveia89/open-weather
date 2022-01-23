@@ -15,4 +15,16 @@
     <string name="percent_val">%,.2f %%</string>
     <string name="wind_speed_val">%,.2f m/s</string>
     <string name="weather_image">Weather image</string>
+    <string name="date">%1$02d.%2$02d</string>
+
+    <string-array
+        name="days_of_week">
+        <item>Sun</item>
+        <item>Mon</item>
+        <item>Tue</item>
+        <item>Wen</item>
+        <item>Thu</item>
+        <item>Fri</item>
+        <item>Sat</item>
+    </string-array>
 </resources>

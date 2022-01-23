@@ -9,11 +9,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.AppBarLayout
 import dagger.android.support.AndroidSupportInjection
 import io.github.joaogouveia89.openweather.databinding.FragmentWeatherInformationBinding
 import io.github.joaogouveia89.openweather.weather_data.WeatherCondition
 import io.github.joaogouveia89.openweather.weather_data.local.entities.Weather
+import io.github.joaogouveia89.openweather.weather_list.WeatherListAdapter
 import javax.inject.Inject
 
 /**
@@ -30,8 +32,10 @@ class WeatherInformationFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val weatherListObserver = Observer<List<Weather>>{
+    private val weatherListAdapter = WeatherListAdapter()
 
+    private val weatherListObserver = Observer<List<Weather>>{
+        weatherListAdapter.submitList(it)
     }
 
     private val todayWeatherObserver = Observer<Weather>{
@@ -43,8 +47,8 @@ class WeatherInformationFragment : Fragment() {
         val clouds = view?.findViewById<TextView>(R.id.tv_clouds)
         val humidity = view?.findViewById<TextView>(R.id.tv_humidity)
         val windSpeed = view?.findViewById<TextView>(R.id.tv_wind_speed)
-
         val condition = WeatherCondition(it.openWeatherId)
+
         container?.setBackgroundResource(condition.background)
         weatherIcon?.setImageResource(condition.mainImage)
         cityName?.text = viewModel.cityName
@@ -61,7 +65,6 @@ class WeatherInformationFragment : Fragment() {
     ): View? {
         _binding = FragmentWeatherInformationBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -73,6 +76,9 @@ class WeatherInformationFragment : Fragment() {
         viewModel.requireUpdatedLocation()
         viewModel.weatherList.observe(viewLifecycleOwner, weatherListObserver)
         viewModel.todayWeather.observe(viewLifecycleOwner, todayWeatherObserver)
+
+        val weatherList = view.findViewById<RecyclerView>(R.id.weather_list)
+        weatherList.adapter = weatherListAdapter
     }
 
     override fun onAttach(context: Context) {

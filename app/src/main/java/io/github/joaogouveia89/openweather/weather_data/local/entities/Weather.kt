@@ -16,6 +16,7 @@ data class Weather(
     @ColumnInfo(name = "humidity") val humidity: Double,
     @ColumnInfo(name = "windSpeed") val windSpeed: Double,
     @ColumnInfo(name = "icon") val icon: String,
+    @ColumnInfo(name = "weatherCharacteristic") val weatherCharacteristic: String,
     @ColumnInfo(name = "openWeatherId") val openWeatherId: Int,
 ){
     companion object{
@@ -29,6 +30,7 @@ data class Weather(
                     humidity = it.humidity.toDouble(),
                     windSpeed = it.windSpeed,
                     icon = it.weather[0].icon,
+                    weatherCharacteristic = it.weather[0].main,
                     openWeatherId = it.weather[0].id
                 )
             }
