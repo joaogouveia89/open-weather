@@ -1,11 +1,8 @@
 package io.github.joaogouveia89.openweather
 
-import android.content.Context
 import android.os.Bundle
-import android.util.AttributeSet
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import io.github.joaogouveia89.openweather.databinding.ActivityMainBinding
 

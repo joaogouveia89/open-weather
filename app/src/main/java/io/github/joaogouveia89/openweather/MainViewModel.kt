@@ -7,12 +7,8 @@ import io.github.joaogouveia89.openweather.weather_data.WeatherDataRepository
 import io.github.joaogouveia89.openweather.weather_data.WeatherLocationManager
 import io.github.joaogouveia89.openweather.weather_data.local.entities.Weather
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 import kotlin.math.*
-import android.location.Geocoder
-import androidx.lifecycle.Observer
-import java.util.*
 
 
 class MainViewModel

@@ -1,7 +1,6 @@
 package io.github.joaogouveia89.openweather.weather_data
 
 import android.content.SharedPreferences
-import android.location.Location
 import androidx.lifecycle.liveData
 import io.github.joaogouveia89.openweather.ktx.daysAgo
 import io.github.joaogouveia89.openweather.ktx.getDouble
@@ -10,7 +9,6 @@ import io.github.joaogouveia89.openweather.weather_data.local.entities.Weather
 import io.github.joaogouveia89.openweather.weather_data.remote.OpenWeatherApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 

@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import io.github.joaogouveia89.openweather.R
 import io.github.joaogouveia89.openweather.weather_data.WeatherCondition
 import io.github.joaogouveia89.openweather.weather_data.local.entities.Weather
-import timber.log.Timber
 import java.util.*
 
 class WeatherListItemViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
@@ -27,7 +26,6 @@ class WeatherListItemViewHolder(private val view: View): RecyclerView.ViewHolder
                 val calendar = GregorianCalendar()
                 calendar.timeInMillis = value.date * 1000
                 dayOfWeek.text = view.resources.getStringArray(R.array.days_of_week)[calendar.get(Calendar.DAY_OF_WEEK) - 1]
-                Timber.d("JOAODEBUG::value.date = ${value.date}    calendar.get(Calendar.DAY_OF_MONTH) = ${calendar.get(Calendar.DAY_OF_MONTH)}        calendar.get(Calendar.MONTH) = ${calendar.get(Calendar.MONTH)}")
                 date.text = view.resources.getString(R.string.date, calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH) + 1)
                 weatherIcon.setImageResource(WeatherCondition(value.openWeatherId).mainImage)
                 weatherCharacteristic.text = value.weatherCharacteristic
