@@ -1,4 +1,4 @@
-package io.github.joaogouveia89.openweather.weather_list
+package io.github.joaogouveia89.openweather.weather_information.weather_list
 
 import androidx.recyclerview.widget.DiffUtil
 import io.github.joaogouveia89.openweather.weather_data.local.entities.Weather

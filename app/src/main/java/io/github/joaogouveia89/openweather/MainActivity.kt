@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import io.github.joaogouveia89.openweather.databinding.ActivityMainBinding
+import io.github.joaogouveia89.openweather.weather_information.WeatherInformationFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

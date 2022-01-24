@@ -17,7 +17,6 @@ class OpenWeatherApp: MultiDexApplication() ,HasAndroidInjector {
     override fun onCreate() {
         super.onCreate()
 
-        // TODO instead of passing app context, initialize repository and location manager here
         DaggerAppComponent.builder()
             .appModule(AppModule(applicationContext))
             .build()

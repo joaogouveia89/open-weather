@@ -1,4 +1,4 @@
-package io.github.joaogouveia89.openweather
+package io.github.joaogouveia89.openweather.weather_information
 
 import android.content.Context
 import android.os.Bundle
@@ -12,10 +12,12 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.AppBarLayout
 import dagger.android.support.AndroidSupportInjection
+import io.github.joaogouveia89.openweather.MainViewModel
+import io.github.joaogouveia89.openweather.R
 import io.github.joaogouveia89.openweather.databinding.FragmentWeatherInformationBinding
 import io.github.joaogouveia89.openweather.weather_data.WeatherCondition
 import io.github.joaogouveia89.openweather.weather_data.local.entities.Weather
-import io.github.joaogouveia89.openweather.weather_list.WeatherListAdapter
+import io.github.joaogouveia89.openweather.weather_information.weather_list.WeatherListAdapter
 import javax.inject.Inject
 
 /**

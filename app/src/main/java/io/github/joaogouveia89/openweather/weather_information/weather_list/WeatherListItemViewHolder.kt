@@ -1,4 +1,4 @@
-package io.github.joaogouveia89.openweather.weather_list
+package io.github.joaogouveia89.openweather.weather_information.weather_list
 
 import android.view.View
 import android.widget.ImageView
