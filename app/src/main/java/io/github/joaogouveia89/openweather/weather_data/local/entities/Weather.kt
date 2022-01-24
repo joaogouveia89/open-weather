@@ -1,11 +1,14 @@
 package io.github.joaogouveia89.openweather.weather_data.local.entities
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import io.github.joaogouveia89.openweather.ktx.toCelsius
 import io.github.joaogouveia89.openweather.weather_data.remote.models.OpenWeatherResponse
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @Entity
 data class Weather(
     @PrimaryKey(autoGenerate = true) val uid: Int = 0,
@@ -18,7 +21,7 @@ data class Weather(
     @ColumnInfo(name = "icon") val icon: String,
     @ColumnInfo(name = "weatherCharacteristic") val weatherCharacteristic: String,
     @ColumnInfo(name = "openWeatherId") val openWeatherId: Int,
-){
+): Parcelable{
     companion object{
         fun fromOpenWeatherResponse(response: OpenWeatherResponse) =
             response.daily.map {

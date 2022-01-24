@@ -6,6 +6,7 @@ import io.github.joaogouveia89.openweather.ktx.observeOnceVm
 import io.github.joaogouveia89.openweather.weather_data.WeatherDataRepository
 import io.github.joaogouveia89.openweather.weather_data.WeatherLocationManager
 import io.github.joaogouveia89.openweather.weather_data.local.entities.Weather
+import io.github.joaogouveia89.openweather.weather_information.WeatherFetchingState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.math.*
@@ -15,17 +16,18 @@ class MainViewModel
     private val weatherRepository: WeatherDataRepository,
     private val weatherLocationManager: WeatherLocationManager): ViewModel() {
 
-    val weatherList: LiveData<List<Weather>>
+    val weatherList: List<Weather>
         get() = _weatherList
 
-    val todayWeather: LiveData<Weather>
-        get() = _todayWeather
+    val weatherFetchingState: LiveData<WeatherFetchingState>
+        get() = _weatherFetchingState
 
     val cityName: String
         get() = weatherLocationManager.cityName
 
-    private val _weatherList = MutableLiveData<List<Weather>>()
-    private val _todayWeather = MutableLiveData<Weather>()
+    private var _weatherFetchingState = MutableLiveData<WeatherFetchingState>()
+
+    private var _weatherList = listOf<Weather>()
 
     private val currentLocationObserver = Observer<Location>{ currentLocation ->
         viewModelScope.launch {
@@ -35,11 +37,12 @@ class MainViewModel
 
     private val weatherListObserver = Observer<List<Weather>> {
         if(it == null || it.isEmpty()) return@Observer //TODO do something here to tell the view that it has an error during weather fetching
-        _todayWeather.postValue(it[0])
-        _weatherList.postValue(it.filterIndexed{ index, _ -> index != 0})
+        _weatherFetchingState.postValue(WeatherFetchingState.Success)
+        _weatherList = it
     }
 
     fun requireUpdatedLocation(){
+        _weatherFetchingState.postValue(WeatherFetchingState.Loading)
         weatherLocationManager.requestLocation()
         weatherLocationManager.currentLocation.observeForever(currentLocationObserver)
     }

@@ -8,7 +8,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [
         AndroidInjectionModule::class,
-        WeatherInformationFragmentModule::class,
+        MainActivityModule::class,
         AppModule::class
 ])
 interface AppComponent {
