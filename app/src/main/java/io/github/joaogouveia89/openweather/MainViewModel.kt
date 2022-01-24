@@ -39,6 +39,7 @@ class MainViewModel
 
             val lastUpdateDaysAgo = weatherRepository.getLastApiCallDaysAgo()
 
+            // TODO: BL to Repo... SEPARATION OF RESPONSABILITIES
             // if there is no locations already saved
             if(lastCoordinates.first == null ||
                 lastCoordinates.second == null ||
@@ -74,6 +75,7 @@ class MainViewModel
     }
 
     private val weatherListObserver = Observer<List<Weather>> {
+        // TODO: CHeck array size before
         _todayWeather.postValue(it[0])
         _weatherList.postValue(it.filterIndexed{ index, _ -> index != 0})
     }
