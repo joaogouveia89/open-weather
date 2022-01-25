@@ -22,7 +22,9 @@ class WeatherDataRepository @Inject constructor(
     private val remoteProvider: WeatherDataProvider,
     private val preferences: SharedPreferences
 ) {
-    suspend fun getWeatherList(location: Location) = liveData(Dispatchers.IO) {
+    var _weatherList = listOf<Weather>()
+
+    suspend fun getWeatherList(location: Location, loadingFunction :() -> Unit) = liveData(Dispatchers.IO) {
         val lastCoordinates = getLastLatLon()
 
         val distance = geographicDistance(
@@ -32,16 +34,25 @@ class WeatherDataRepository @Inject constructor(
 
         val lastUpdateDaysAgo = getLastApiCallDaysAgo()
 
-        if(lastCoordinates.first == null ||
+        if(distance != null && distance < KM_TO_RECALCULATE && _weatherList.isNotEmpty()){
+            emit(_weatherList)
+            return@liveData
+        }
+
+        loadingFunction.invoke()
+
+        _weatherList = if(lastCoordinates.first == null ||
             lastCoordinates.second == null ||
             (distance != null && distance > KM_TO_RECALCULATE) ||
             lastUpdateDaysAgo == null ||
             lastUpdateDaysAgo >= DAYS_AGO_TO_UPDATE
         ){
-            emit(getRemoteWeatherData(location.latitude, location.longitude))
+            getRemoteWeatherData(location.latitude, location.longitude)
         }else{
-            emit(getLocalWeatherData())
+            getLocalWeatherData()
         }
+
+        emit(_weatherList)
     }
 
     // thanks to https://www.movable-type.co.uk/scripts/latlong.html
@@ -95,7 +106,7 @@ class WeatherDataRepository @Inject constructor(
             it.putString(LONGITUDE, longitude.toString())
         }.commit()
 
-    private fun getLastLatLon() = Pair(
+    fun getLastLatLon() = Pair(
         preferences.getDouble(LATITUDE),
         preferences.getDouble(LONGITUDE)
     )

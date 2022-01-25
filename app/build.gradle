@@ -63,6 +63,7 @@ dependencies {
     implementation 'com.android.support:multidex:2.0.1'
 
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     //di
     def dagger_version = "2.40"

@@ -31,7 +31,9 @@ class MainViewModel
 
     private val currentLocationObserver = Observer<Location>{ currentLocation ->
         viewModelScope.launch {
-            weatherRepository.getWeatherList(currentLocation).observeOnceVm(weatherListObserver)
+            weatherRepository.getWeatherList(currentLocation) {
+                _weatherFetchingState.postValue(WeatherFetchingState.Loading)
+            }.observeOnceVm(weatherListObserver)
         }
     }
 
@@ -42,7 +44,6 @@ class MainViewModel
     }
 
     fun requireUpdatedLocation(){
-        _weatherFetchingState.postValue(WeatherFetchingState.Loading)
         weatherLocationManager.requestLocation()
         weatherLocationManager.currentLocation.observeForever(currentLocationObserver)
     }

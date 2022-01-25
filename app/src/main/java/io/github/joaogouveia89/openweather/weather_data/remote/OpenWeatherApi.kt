@@ -3,8 +3,6 @@ package io.github.joaogouveia89.openweather.weather_data.remote
 import io.github.joaogouveia89.openweather.ktx.getUnsafeOkHttpClient
 import io.github.joaogouveia89.openweather.weather_data.WeatherDataProvider
 import io.github.joaogouveia89.openweather.weather_data.local.entities.Weather
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/CTW00433-Admin/AndroidStudioProjects/OpenWeather/app/src/main/res/layout/activity_main.xml" value="0.10144927536231885" />
         <entry key="..\:/Users/CTW00433-Admin/AndroidStudioProjects/OpenWeather/app/src/main/res/layout/fragment_first.xml" value="0.10144927536231885" />
+        <entry key="..\:/Users/CTW00433-Admin/AndroidStudioProjects/OpenWeather/app/src/main/res/layout/fragment_loading.xml" value="0.20625" />
         <entry key="app/src/main/res/drawable/clouds.xml" value="0.21875" />
         <entry key="app/src/main/res/drawable/ic_clouds.xml" value="0.21875" />
         <entry key="app/src/main/res/drawable/ic_cloudy.xml" value="0.21875" />

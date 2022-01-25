@@ -1,7 +1,6 @@
 package io.github.joaogouveia89.openweather.di
 
 import android.content.Context
-import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
 import io.github.joaogouveia89.openweather.weather_data.WeatherDataRepository

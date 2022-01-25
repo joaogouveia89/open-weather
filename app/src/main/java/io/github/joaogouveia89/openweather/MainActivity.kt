@@ -1,16 +1,13 @@
 package io.github.joaogouveia89.openweather
 
-import android.content.Context
 import android.os.Bundle
-import android.util.AttributeSet
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import dagger.android.AndroidInjection
 import io.github.joaogouveia89.openweather.databinding.ActivityMainBinding
+import io.github.joaogouveia89.openweather.loading.LoadingFragment
 import io.github.joaogouveia89.openweather.weather_information.WeatherFetchingState
 import io.github.joaogouveia89.openweather.weather_information.WeatherInformationFragment
 import javax.inject.Inject
@@ -21,8 +18,9 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var viewModel: MainViewModel
 
-    private val weatherInformationFragment: WeatherInformationFragment = WeatherInformationFragment.newInstance(
-        emptyList(), "")
+    private val weatherInformationFragment: WeatherInformationFragment = WeatherInformationFragment()
+
+    private val loadingFragment = LoadingFragment()
 
     private val fetchingStateObserver = Observer<WeatherFetchingState>{ it ->
 
@@ -30,7 +28,7 @@ class MainActivity : AppCompatActivity() {
             is WeatherFetchingState.Success -> weatherInformationFragment.apply {
                     updateData(viewModel.weatherList, viewModel.cityName)
             }
-            WeatherFetchingState.Loading -> Fragment() // TODO Create the loading fragment
+            is WeatherFetchingState.Loading -> loadingFragment
         }
         supportFragmentManager.beginTransaction()
             .replace(binding.fragmentContainer.id, fragment)
