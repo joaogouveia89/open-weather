@@ -35,9 +35,10 @@
             />
         <!-- Tell your toolbar to scroll|enterAlways -->
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/main.toolbar"
+            android:id="@+id/mainToolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            app:title="test"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:layout_collapseMode="pin"/>
         <!-- add layout_gravity="bottom" -->

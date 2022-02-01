@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.AppBarLayout
@@ -19,7 +20,7 @@ class WeatherInformationFragment : Fragment() {
     private var weatherListView: RecyclerView? = null
     private var container: AppBarLayout? = null
     private var weatherIcon: ImageView? = null
-    private var cityNameView: TextView? = null
+    private var toolbar: Toolbar? = null
     private var tempMin: TextView? = null
     private var tempMax: TextView? = null
     private var clouds: TextView? = null
@@ -35,7 +36,7 @@ class WeatherInformationFragment : Fragment() {
         val condition = WeatherCondition(weather.openWeatherId)
         container?.setBackgroundResource(condition.background)
         weatherIcon?.setImageResource(condition.mainImage)
-        cityNameView?.text = cityName
+        toolbar?.title = cityName
         tempMin?.text = getString(R.string.temperature_val, weather.minTemp)
         tempMax?.text = getString(R.string.temperature_val, weather.maxTemp)
         clouds?.text = getString(R.string.percent_val, weather.clouds)
@@ -62,7 +63,7 @@ class WeatherInformationFragment : Fragment() {
         weatherListView = view.findViewById(R.id.weather_list)
         container = view.findViewById(R.id.main_appbar)
         weatherIcon = view.findViewById(R.id.iv_weather_icon)
-        cityNameView = view.findViewById(R.id.tv_city)
+        toolbar = view.findViewById(R.id.mainToolbar)
         tempMin = view.findViewById(R.id.tv_temp_min)
         tempMax = view.findViewById(R.id.tv_temp_max)
         clouds = view.findViewById(R.id.tv_clouds)
@@ -75,7 +76,7 @@ class WeatherInformationFragment : Fragment() {
         weatherListView = null
         container = null
         weatherIcon = null
-        cityNameView = null
+        toolbar = null
         tempMin = null
         tempMax = null
         clouds = null
