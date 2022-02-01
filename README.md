@@ -8,7 +8,7 @@
 > [Open Weather](https://openweathermap.org/) data consuming application.
 
 
-![App image](Screenshot_1642977453.png)
+![App image](Screenshot_1643753781.png)
 
 > This project is still under development
 
