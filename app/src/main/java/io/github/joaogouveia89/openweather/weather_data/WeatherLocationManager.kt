@@ -14,7 +14,7 @@ import com.google.android.gms.location.LocationServices
 import java.util.*
 import javax.inject.Inject
 
-class WeatherLocationManager @Inject constructor(val context: Context) {
+class WeatherLocationManager @Inject constructor(private val context: Context) {
 
     private val _currentLocation = MutableLiveData<Location>()
     private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)

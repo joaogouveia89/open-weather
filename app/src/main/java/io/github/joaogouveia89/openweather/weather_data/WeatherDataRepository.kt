@@ -22,31 +22,18 @@ class WeatherDataRepository @Inject constructor(
     private val remoteProvider: WeatherDataProvider,
     private val preferences: SharedPreferences
 ) {
-    var _weatherList = listOf<Weather>()
+    private var _weatherList = listOf<Weather>()
 
     suspend fun getWeatherList(location: Location, loadingFunction :() -> Unit) = liveData(Dispatchers.IO) {
-        val lastCoordinates = getLastLatLon()
 
-        val distance = geographicDistance(
+        val dataRequestManager = WeatherDataRequestManager(
             Pair(location.latitude, location.longitude),
-            lastCoordinates
-        )
-
-        val lastUpdateDaysAgo = getLastApiCallDaysAgo()
-
-        if(distance != null && distance < KM_TO_RECALCULATE && _weatherList.isNotEmpty()){
-            emit(_weatherList)
-            return@liveData
-        }
+            getLastLatLon(),
+            getLastApiCallDaysAgo() ?: DAYS_AGO_TO_UPDATE)
 
         loadingFunction.invoke()
 
-        _weatherList = if(lastCoordinates.first == null ||
-            lastCoordinates.second == null ||
-            (distance != null && distance > KM_TO_RECALCULATE) ||
-            lastUpdateDaysAgo == null ||
-            lastUpdateDaysAgo >= DAYS_AGO_TO_UPDATE
-        ){
+        _weatherList = if(dataRequestManager.requiresFreshData()){
             getRemoteWeatherData(location.latitude, location.longitude)
         }else{
             getLocalWeatherData()
@@ -55,20 +42,7 @@ class WeatherDataRepository @Inject constructor(
         emit(_weatherList)
     }
 
-    // thanks to https://www.movable-type.co.uk/scripts/latlong.html
-    private fun geographicDistance
-                (from: Pair<Double, Double>,
-                 to: Pair<Double?, Double?>): Double? {
-        if(to.first == null || to.second == null) return null
-        // just to avoid compiling error
-        val firstLat = to.first ?: 0.0
-        val firstLon = to.second ?: 0.0
 
-        val a = sin((firstLat - from.first) / 2).pow(2) + cos(firstLat) * cos(from.first) * sin((firstLon - from.second) / 2).pow(2)
-        val c = 2 * atan2(sqrt(a), sqrt(1-a))
-
-        return EARTH_RADIUS_KM * c
-    }
 
     //http://saulmm.github.io/mastering-coordinator
     private suspend fun getLocalWeatherData() = localProvider.getWeatherList()
@@ -106,7 +80,7 @@ class WeatherDataRepository @Inject constructor(
             it.putString(LONGITUDE, longitude.toString())
         }.commit()
 
-    fun getLastLatLon() = Pair(
+    private fun getLastLatLon() = Pair(
         preferences.getDouble(LATITUDE),
         preferences.getDouble(LONGITUDE)
     )
