@@ -19,12 +19,17 @@ class WeatherDataRequestManager(
                 (from: Pair<Double?, Double?>,
                  to: Pair<Double?, Double?>): Double? {
 
-        val fromLat = from.first ?: return null
+        val fromLat = from.first  ?: return null
         val fromLong = from.second ?: return null
         val toLat = to.first ?: return null
         val toLong = to.second ?: return null
 
-        val a = sin((toLat - fromLat) / 2).pow(2) + cos(toLat) * cos(fromLat) * sin((toLong - fromLong) / 2).pow(2)
+        val fi1 = fromLat * Math.PI / 180
+        val fi2 = toLat * Math.PI / 180
+        val deltaFi = (toLat - fromLat) * Math.PI / 180
+        val deltaLambda = (toLong - fromLong) * Math.PI / 180
+
+        val a = sin((deltaFi) / 2).pow(2) + cos(fi1) * cos(fi2) * sin((deltaLambda) / 2).pow(2)
         val c = 2 * atan2(sqrt(a), sqrt(1-a))
 
         return EARTH_RADIUS_KM * c
